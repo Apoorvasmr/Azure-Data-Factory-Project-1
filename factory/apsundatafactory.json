@@ -1,0 +1,15 @@
+{
+	"name": "apsundatafactory",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e782511c-b850-4a60-a611-bc91864a854b",
+		"tenantId": "5f641ea5-828a-4bef-b9b6-5033f8bc5bd9"
+	}
+}

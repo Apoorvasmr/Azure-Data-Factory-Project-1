@@ -1,0 +1,81 @@
+{
+	"name": "API_ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyAPIdata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "WebURL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_api_source",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_api_sink",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "WebURL",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://raw.githubusercontent.com/Apoorvasmr/Azure-Data-Factory-Project-1/refs/heads/main/ADF_project/DimAirport.json"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-11-15T05:26:04Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
